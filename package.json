@@ -1,0 +1,34 @@
+{
+  "name": "gulp-messageformat",
+  "version": "0.0.0",
+  "description": "",
+  "license": "MIT",
+  "repository": "outfound/gulp-messageformat",
+  "author": {
+    "name": "Max Holman",
+    "email": "mholman@outfound.com",
+    "url": "https://github.com/outfound"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "gulpplugin"
+  ],
+  "dependencies": {
+    "gulp-util": "~2.2.19",
+    "through2": "~0.5.1",
+    "messageformat": "~0.2.0"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "gulp": "~3.8.7",
+    "gulp-util": "~2.2.20"
+  }
+}
