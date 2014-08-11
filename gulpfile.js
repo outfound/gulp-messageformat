@@ -4,7 +4,7 @@
 
 var gulp = require('gulp'),
     path = require('path'),
-    messageformat = require('./index'),//gulp-messageformat'),
+    messageFormat = require('./index'),//gulp-messageformat'),
     gutil = require('gulp-util');
 
 
@@ -16,7 +16,7 @@ function handleError(err) {
 
 gulp.task('mf', function () {
     gulp.src(['../outfound/nls/en/**/*.json'])
-        .pipe(messageformat({
+        .pipe(messageFormat({
             locale: 'en'
         }))
         .pipe(gulp.dest(path.resolve('./tmp')))
