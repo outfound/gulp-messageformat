@@ -21,4 +21,4 @@ gulp.task('default', function () {
 
 ## License
 
-MIT © [<%= Outfound %>](https://github.com/outfound)
+MIT © Outfound Pty Ltd (https://github.com/outfound)
