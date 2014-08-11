@@ -1,43 +1,24 @@
-# [gulp](http://gulpjs.com)-<%= pluginName %> [![Build Status](https://travis-ci.org/<%= githubUsername %>/gulp-<%= pluginName %>.svg?branch=master)](https://travis-ci.org/<%= githubUsername %>/gulp-<%= pluginName %>)
+# [gulp](http://gulpjs.com)-messageformat
 
-> Lorem ipsum
-
-
-## Install
-
-```sh
-$ npm install --save-dev gulp-<%= pluginName %>
-```
+> WIP
 
 
 ## Usage
 
 ```js
 var gulp = require('gulp');
-var <%= camelPluginName %> = require('gulp-<%= pluginName %>');
+var messageFormat = require('gulp-messageformat');
 
 gulp.task('default', function () {
-	return gulp.src('src/file.ext')
-		.pipe(<%= camelPluginName %>())
+	return gulp.src('src/en/**/*.json')
+		.pipe(messageFormat({
+		    locale: 'en'
+		}))
 		.pipe(gulp.dest('dist'));
 });
 ```
 
 
-## API
-
-### <%= camelPluginName %>(options)
-
-#### options
-
-##### foo
-
-Type: `boolean`  
-Default: `false`
-
-Lorem ipsum.
-
-
 ## License
 
-MIT © [<%= name %>](https://github.com/<%= githubUsername %>)
+MIT © [<%= Outfound %>](https://github.com/outfound)
