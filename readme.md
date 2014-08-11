@@ -1,6 +1,6 @@
 # [gulp](http://gulpjs.com)-messageformat
 
-> WIP
+> WIP!! I don't even know if this plugin works!  Still testing.
 
 
 ## Usage
