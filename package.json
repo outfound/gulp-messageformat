@@ -1,14 +1,13 @@
 {
   "name": "gulp-messageformat",
   "version": "0.0.0",
-  "description": "",
+  "description": "> WIP!! I don't even know if this plugin works!  Still testing.",
   "license": "MIT",
-  "repository": "outfound/gulp-messageformat",
-  "author": {
-    "name": "Max Holman",
-    "email": "mholman@outfound.com",
-    "url": "https://github.com/outfound"
+  "repository": {
+    "type": "git",
+    "url": "outfound/gulp-messageformat"
   },
+  "author": "Max Holman <mholman@outfound.com> (https://github.com/outfound)",
   "engines": {
     "node": ">=0.10.0"
   },
@@ -30,5 +29,6 @@
     "mocha": "*",
     "gulp": "~3.8.7",
     "gulp-util": "~2.2.20"
-  }
+  },
+  "main": "index.js"
 }
