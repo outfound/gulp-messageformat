@@ -36,5 +36,5 @@
   },
   "main": "index.js",
   "files": ["umd.js"],
-  "readmeFilename": "readme.md",
+  "readmeFilename": "readme.md"
 }
