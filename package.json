@@ -5,9 +5,13 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "outfound/gulp-messageformat"
+    "url": "https://github.com/outfound/gulp-messageformat"
   },
-  "author": "Max Holman <mholman@outfound.com> (https://github.com/outfound)",
+  "author": {
+    "name": "Max Holman",
+    "email": "mholman@outfound.com",
+    "url": "https://github.com/outfound"
+  },
   "engines": {
     "node": ">=0.10.0"
   },
@@ -21,7 +25,7 @@
     "gulpplugin"
   ],
   "dependencies": {
-    "gulp-util": "~2.2.19",
+    "gulp-util": "~2.2.20",
     "through2": "~0.5.1",
     "messageformat": "~0.2.0"
   },
@@ -30,5 +34,7 @@
     "gulp": "~3.8.7",
     "gulp-util": "~2.2.20"
   },
-  "main": "index.js"
+  "main": "index.js",
+  "files": ["umd.js"],
+  "readmeFilename": "readme.md",
 }
