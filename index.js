@@ -7,39 +7,22 @@ var gutil = require('gulp-util'),
     MessageFormat = require('messageformat'),
     EOL = require('os').EOL;
 
-
-function compile(phrases, file, options) {
-    var namespace = path.basename(file.path, path.extname(file.path));
-    var compiler = new MessageFormat(options.locale);
-
-    var fns = [];
-    Object.keys(phrases).forEach(function (key) {
-        fns.push('"' + key + '":' + compiler.precompile(compiler.parse(phrases[key])));
-    });
-
-    return '"' + namespace + '":{' + fns.join(',' + EOL) + '}';
-}
-
-
 module.exports = function (options) {
 
     if (!options.locale) {
         throw new gutil.PluginError('gulp-messageformat', '`locale` required');
     }
 
+    var langs = options.locale.trim().split(/[ ,]+/);
+    var mf = new MessageFormat(langs[0], false, 'i18n');
     var scripts = [];
     var fakeFile;
 
-    function combine(file, encoding, next) {
+    langs.forEach(function (lang) {
+        MessageFormat.loadLocale(lang);
+    });
 
-        if (!fakeFile) {
-            fakeFile = new gutil.File({
-                path: path.join(file.base, options.locale + '.js'),
-                base: file.base,
-                cwd: file.cwd,
-                contents: new Buffer('')
-            });
-        }
+    function combine(file, encoding, next) {
 
         if (file.isNull()) {
             /* jshint validthis:true*/
@@ -54,8 +37,22 @@ module.exports = function (options) {
             return;
         }
 
+        // get the first files path, base, cwd etc. and no contents.
+        if (!fakeFile) {
+            fakeFile = new gutil.File({
+                path: path.join(file.base, options.locale + '.js'),
+                base: file.base,
+                cwd: file.cwd,
+                contents: new Buffer('')
+            });
+        }
+
         try {
-            scripts.push(EOL+compile(JSON.parse(file.contents.toString()), file, options));
+            //scripts.push(EOL+compile(JSON.parse(file.contents.toString()), file, options));
+            var namespace = path.basename(file.path, path.extname(file.path));
+            var compiled = '"'+namespace+'":'+mf.precompileObject(JSON.parse(file.contents.toString()));
+            scripts.push(compiled);
+
         } catch (err) {
             this.emit('error', new gutil.PluginError('gulp-messageformat', err));
         }
@@ -66,21 +63,18 @@ module.exports = function (options) {
 
     function flush(next) {
 
-        var _this = this;
+        var umd = fs.readFileSync(path.resolve(path.join(__dirname, 'umd.js')), 'utf8');
 
-        fs.readFile('commonjsStrict.js', 'utf8', function (err, data) {
-            if (err) {
-                this.emit('error', new gutil.PluginError('gulp-messageformat', err));
-            }
-            var result = data.replace(/null/g, '{' + EOL + scripts.join(','+EOL) + EOL + '}');
+        var result = umd.replace(/return;/g, [
+            'var i18n = ',
+            mf.functions() + ';',
+            'return {', scripts.join(','+EOL), '};'
+        ].join(EOL));
 
-            fakeFile.contents = new Buffer(result);
+        fakeFile.contents = new Buffer(result);
 
-            /* jshint validthis:true*/
-            _this.push(fakeFile);
-            next();
-
-        });
+        this.push(fakeFile);
+        next();
 
     }
 
