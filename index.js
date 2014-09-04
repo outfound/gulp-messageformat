@@ -50,6 +50,9 @@ module.exports = function (options) {
         try {
             //scripts.push(EOL+compile(JSON.parse(file.contents.toString()), file, options));
             var namespace = path.basename(file.path, path.extname(file.path));
+            if (path.basename(path.dirname(file.path)) != options.locale) {
+                namespace = path.join(path.basename(path.dirname(file.path)), namespace);
+            }
             var compiled = '"'+namespace+'":'+mf.precompileObject(JSON.parse(file.contents.toString()));
             scripts.push(compiled);
 
